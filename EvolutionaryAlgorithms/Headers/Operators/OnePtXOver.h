@@ -1,11 +1,17 @@
 ﻿#pragma once
 #include <cstdlib>
 
-template<typename Population>
-class OnePtXOver
+namespace ea
 {
-public:
-	void operator()(Population & population)
+	template<typename Population>
+	class OnePtXOver
+	{
+	public:
+		void operator()(Population& population);
+	};
+
+	template <typename Population>
+	void OnePtXOver<Population>::operator()(Population& population)
 	{
 		auto individual_size = population[0].size();
 
@@ -24,4 +30,4 @@ public:
 			}
 		}
 	}
-};
+}

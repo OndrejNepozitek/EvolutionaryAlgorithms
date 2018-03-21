@@ -1,15 +1,21 @@
 #pragma once
 #include <random>
 
-template<typename TPopulation>
-class RouletteWheelSelector
+namespace ea
 {
-	using t_individual = typename TPopulation::value_type;
-	using t_fitness = typename t_individual::fitness_type;
-	using t_population_iterator = typename TPopulation::iterator;
+	template<typename TPopulation>
+	class RouletteWheelSelector
+	{
+		using t_individual = typename TPopulation::value_type;
+		using t_fitness = typename t_individual::fitness_type;
+		using t_population_iterator = typename TPopulation::iterator;
 
-public:
-	void operator()(TPopulation & from, TPopulation & to, const int count)
+	public:
+		void operator()(TPopulation& from, TPopulation& to, const int count);
+	};
+
+	template <typename TPopulation>
+	void RouletteWheelSelector<TPopulation>::operator()(TPopulation& from, TPopulation& to, const int count)
 	{
 		std::random_device rd;
 		std::mt19937 e2(rd());
@@ -17,7 +23,7 @@ public:
 
 		t_fitness fitness_sum = 0;
 
-		for (auto && individual : from)
+		for (auto&& individual : from)
 		{
 			fitness_sum += individual.fitness;
 		}
@@ -29,7 +35,7 @@ public:
 			auto random = dist(e2) * fitness_sum;
 			t_fitness sum = 0;
 
-			for (auto && individual : from)
+			for (auto&& individual : from)
 			{
 				sum += individual.fitness;
 
@@ -44,8 +50,7 @@ public:
 
 		if (counter != count)
 		{
-			throw std::exception{ "not enough individuals were selected" };
+			throw std::exception{"not enough individuals were selected"};
 		}
 	}
-};
-
+}

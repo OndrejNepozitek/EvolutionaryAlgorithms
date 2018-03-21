@@ -10,7 +10,7 @@
 
 int main()
 {
-	using individual = ArrayIndividual<100, bool, int>;
+	using individual = ea::ArrayIndividual<100, bool, int>;
 	using population = std::vector<individual>;
 
 	population pop{};
@@ -20,11 +20,11 @@ int main()
 		pop.emplace(pop.end());
 	}
 
-	EvolutionaryAlgorithm<population> ea{};
+	ea::EvolutionaryAlgorithm<population> ea{};
 
-	ea.add_operator(BitFlipMutation<population>{});
-	ea.add_operator(OnePtXOver<population>{});
-	ea.add_mating_selector(RouletteWheelSelector<population>{});
+	ea.add_operator(ea::BitFlipMutation<population>{});
+	ea.add_operator(ea::OnePtXOver<population>{});
+	ea.add_mating_selector(ea::RouletteWheelSelector<population>{});
 	ea.set_fitness([](auto & pop) -> void {
 		for (auto && individual : pop)
 		{

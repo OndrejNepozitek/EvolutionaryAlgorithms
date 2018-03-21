@@ -1,15 +1,21 @@
 ﻿#pragma once
 #include <cstdlib>
 
-template<typename Population>
-class BitFlipMutation
+namespace ea
 {
-public:
-	void operator()(Population & population)
+	template<typename Population>
+	class BitFlipMutation
 	{
-		for (auto && individual : population)
+	public:
+		void operator()(Population& population);
+	};
+
+	template <typename Population>
+	void BitFlipMutation<Population>::operator()(Population& population)
+	{
+		for (auto&& individual : population)
 		{
-			for (auto && element : individual)
+			for (auto&& element : individual)
 			{
 				if (rand() % 100 < 5)
 				{
@@ -18,4 +24,4 @@ public:
 			}
 		}
 	}
-};
+}

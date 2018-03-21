@@ -3,43 +3,63 @@
 #include <vector>
 #include <algorithm>
 
-template<typename TPopulation>
-class EvolutionaryAlgorithm
+namespace ea
 {
-	using TOperator = std::function<void(TPopulation &)>;
-	using TSelector = std::function<void(TPopulation &, TPopulation &, int)>;
-	using TFitness = std::function<void(TPopulation &)>;
+	template<typename TPopulation>
+	class EvolutionaryAlgorithm
+	{
+		using TOperator = std::function<void(TPopulation &)>;
+		using TSelector = std::function<void(TPopulation &, TPopulation &, int)>;
+		using TFitness = std::function<void(TPopulation &)>;
 
-	std::vector<TOperator> operators_;
-	std::vector<TSelector> mating_selectors_;
-	std::vector<TSelector> natural_selectors_;
-	TFitness fitness_;
+		std::vector<TOperator> operators_;
+		std::vector<TSelector> mating_selectors_;
+		std::vector<TSelector> natural_selectors_;
+		TFitness fitness_;
 
-	bool elitism_enabled_ = false;
-	double elitism_percentage_ = 0;
+		bool elitism_enabled_ = false;
+		double elitism_percentage_ = 0;
 
-public:
-	void add_operator(TOperator op)
+	public:
+		void add_operator(TOperator op);
+
+		void add_mating_selector(TSelector selector);
+
+		void add_natural_selector(TSelector selector);
+
+		void set_fitness(TFitness fitness);
+
+		void set_elitism(double percentage);
+
+		TPopulation evolve(TPopulation population);
+	};
+
+	template <typename TPopulation>
+	void EvolutionaryAlgorithm<TPopulation>::add_operator(TOperator op)
 	{
 		operators_.push_back(op);
 	}
 
-	void add_mating_selector(TSelector selector)
+	template <typename TPopulation>
+	void EvolutionaryAlgorithm<TPopulation>::add_mating_selector(TSelector selector)
 	{
 		mating_selectors_.push_back(selector);
 	}
 
-	void add_natural_selector(TSelector selector)
+	template <typename TPopulation>
+	void EvolutionaryAlgorithm<TPopulation>::add_natural_selector(TSelector selector)
 	{
 		natural_selectors_.push_back(selector);
 	}
 
-	void set_fitness(TFitness fitness)
+	template <typename TPopulation>
+	void EvolutionaryAlgorithm<TPopulation>::set_fitness(TFitness fitness)
 	{
 		this->fitness_ = fitness;
 	}
 
-	void set_elitism(const double percentage)
+	template <typename TPopulation>
+	void EvolutionaryAlgorithm<TPopulation>::set_elitism(const double percentage)
 	{
 		if (percentage > 1 || percentage < 0)
 		{
@@ -50,16 +70,17 @@ public:
 		elitism_percentage_ = percentage;
 	}
 
-	TPopulation evolve(TPopulation population)
+	template <typename TPopulation>
+	TPopulation EvolutionaryAlgorithm<TPopulation>::evolve(TPopulation population)
 	{
 		TPopulation new_pop{};
 
-		for (auto && mating_selector : mating_selectors_)
+		for (auto&& mating_selector : mating_selectors_)
 		{
 			mating_selector(population, new_pop, population.size());
 		}
 
-		for (auto && op : operators_)
+		for (auto&& op : operators_)
 		{
 			op(new_pop);
 		}
@@ -85,12 +106,12 @@ public:
 
 		if (!natural_selectors_.empty())
 		{
-			for (auto && natural_selector : natural_selectors_)
+			for (auto&& natural_selector : natural_selectors_)
 			{
 				natural_selector(temp, new_pop, select_count);
 			}
-
-		} else
+		}
+		else
 		{
 			for (auto i = 0; i < select_count; ++i)
 			{
@@ -100,4 +121,4 @@ public:
 
 		return new_pop;
 	}
-};
+}
