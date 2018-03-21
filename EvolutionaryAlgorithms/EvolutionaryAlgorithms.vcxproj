@@ -131,6 +131,8 @@
     <ClInclude Include="Headers\Operators\BitFlipMutation.h" />
     <ClInclude Include="Headers\Operators\OnePtXOver.h" />
     <ClInclude Include="Headers\Selectors\RouletteWheelSelector.h" />
+    <ClInclude Include="Headers\Utils\Benchmarks.h" />
+    <ClInclude Include="Headers\Utils\TimeMeasuring.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
