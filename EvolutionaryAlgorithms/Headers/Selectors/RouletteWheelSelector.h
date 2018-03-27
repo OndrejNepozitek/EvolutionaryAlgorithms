@@ -12,10 +12,18 @@ namespace ea
 
 	public:
 		void operator()(TPopulation& from, TPopulation& to, const int count);
+
+		static void select(TPopulation& from, TPopulation& to, const int count);
 	};
 
 	template <typename TPopulation>
 	void RouletteWheelSelector<TPopulation>::operator()(TPopulation& from, TPopulation& to, const int count)
+	{
+		select(from, to, count);
+	}
+
+	template <typename TPopulation>
+	void RouletteWheelSelector<TPopulation>::select(TPopulation& from, TPopulation& to, const int count)
 	{
 		std::random_device rd;
 		std::mt19937 e2(rd());
@@ -50,7 +58,7 @@ namespace ea
 
 		if (counter != count)
 		{
-			throw std::exception{"not enough individuals were selected"};
+			throw std::exception{ "not enough individuals were selected" };
 		}
 	}
 }

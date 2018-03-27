@@ -8,10 +8,18 @@ namespace ea
 	{
 	public:
 		void operator()(Population& population);
+
+		static void operate(Population& population);
 	};
 
 	template <typename Population>
 	void OnePtXOver<Population>::operator()(Population& population)
+	{
+		operate(population);
+	}
+
+	template <typename Population>
+	void OnePtXOver<Population>::operate(Population& population)
 	{
 		auto individual_size = population[0].size();
 

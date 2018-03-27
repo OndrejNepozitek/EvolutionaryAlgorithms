@@ -128,6 +128,8 @@
   <ItemGroup>
     <ClInclude Include="Headers\ArrayIndividual.h" />
     <ClInclude Include="Headers\EvolutionaryAlgorithm.h" />
+    <ClInclude Include="Headers\EvolutionaryAlgorithm2.h" />
+    <ClInclude Include="Headers\GeneticAlgorithm.h" />
     <ClInclude Include="Headers\Operators\BitFlipMutation.h" />
     <ClInclude Include="Headers\Operators\OnePtXOver.h" />
     <ClInclude Include="Headers\Selectors\RouletteWheelSelector.h" />

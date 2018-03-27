@@ -6,11 +6,13 @@
 #include "Headers/EvolutionaryAlgorithm.h"
 #include "Headers/Selectors/RouletteWheelSelector.h"
 #include "Headers/Utils/Benchmarks.h"
+#include "Headers/EvolutionaryAlgorithm2.h"
+#include "Headers/GeneticAlgorithm.h"
 
 
 int main()
 {
-	using individual = ea::ArrayIndividual<100, bool, int>;
+	using individual = ea::ArrayIndividual<20, bool, int>;
 	using population = std::vector<individual>;
 
 	population pop{};
@@ -44,6 +46,15 @@ int main()
 
 	ea.set_elitism(0.05);
 
+	ea::EvolutionaryAlgorithm2<population> ea2{};
+
+	ea2.add_operator(ea::BitFlipMutation<population>::operate);
+	ea2.add_operator(ea::OnePtXOver<population>::operate);
+	ea2.add_mating_selector(ea::RouletteWheelSelector<population>::select);
+	ea2.set_fitness(ea::ga_fitness);
+
+	ea2.set_elitism(0.05);
+
 
 	//for (int i = 0; i < 10000; ++i)
 	//{
@@ -59,7 +70,12 @@ int main()
 
 	for (auto i = 0; i < 3; ++i)
 	{
-		ea::benchmark_and_output(ea, pop, 5000);
+		ea::benchmark_and_output(ea, pop, 10000);
+	}
+
+	for (auto i = 0; i < 3; ++i)
+	{
+		ea::benchmark_and_output(ea2, pop, 10000);
 	}
 
 	return 0;

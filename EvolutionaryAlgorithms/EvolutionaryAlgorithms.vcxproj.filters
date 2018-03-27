@@ -41,5 +41,11 @@
     <ClInclude Include="Headers\Utils\Benchmarks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\EvolutionaryAlgorithm2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\GeneticAlgorithm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

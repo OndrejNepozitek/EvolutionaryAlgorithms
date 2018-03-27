@@ -6,18 +6,16 @@
 namespace ea
 {
 	template<typename TPopulation>
-	class EvolutionaryAlgorithm
+	class EvolutionaryAlgorithm2
 	{
-		using TOperator = std::function<void(TPopulation &)>;
-		using TSelector = std::function<void(TPopulation &, TPopulation &, int)>;
-		using TFitness = std::function<void(TPopulation &)>;
-		using TReplacement = std::function<TPopulation(TPopulation &, TPopulation &)>;
+		using TOperator = void(*)(TPopulation &);
+		using TSelector = void(*)(TPopulation &, TPopulation &, int);
+		using TFitness = void(*)(TPopulation &);
 
 		std::vector<TOperator> operators_;
 		std::vector<TSelector> mating_selectors_;
 		std::vector<TSelector> natural_selectors_;
 		TFitness fitness_;
-		TReplacement replacement_;
 
 		bool elitism_enabled_ = false;
 		double elitism_percentage_ = 0;
@@ -33,37 +31,35 @@ namespace ea
 
 		void set_elitism(double percentage);
 
-		void set_replacement(TReplacement replacement);
-
 		TPopulation evolve(TPopulation population);
 	};
 
 	template <typename TPopulation>
-	void EvolutionaryAlgorithm<TPopulation>::add_operator(TOperator op)
+	void EvolutionaryAlgorithm2<TPopulation>::add_operator(TOperator op)
 	{
 		operators_.push_back(op);
 	}
 
 	template <typename TPopulation>
-	void EvolutionaryAlgorithm<TPopulation>::add_mating_selector(TSelector selector)
+	void EvolutionaryAlgorithm2<TPopulation>::add_mating_selector(TSelector selector)
 	{
 		mating_selectors_.push_back(selector);
 	}
 
 	template <typename TPopulation>
-	void EvolutionaryAlgorithm<TPopulation>::add_natural_selector(TSelector selector)
+	void EvolutionaryAlgorithm2<TPopulation>::add_natural_selector(TSelector selector)
 	{
 		natural_selectors_.push_back(selector);
 	}
 
 	template <typename TPopulation>
-	void EvolutionaryAlgorithm<TPopulation>::set_fitness(TFitness fitness)
+	void EvolutionaryAlgorithm2<TPopulation>::set_fitness(TFitness fitness)
 	{
 		this->fitness_ = fitness;
 	}
 
 	template <typename TPopulation>
-	void EvolutionaryAlgorithm<TPopulation>::set_elitism(const double percentage)
+	void EvolutionaryAlgorithm2<TPopulation>::set_elitism(const double percentage)
 	{
 		if (percentage > 1 || percentage < 0)
 		{
@@ -75,13 +71,7 @@ namespace ea
 	}
 
 	template <typename TPopulation>
-	void EvolutionaryAlgorithm<TPopulation>::set_replacement(TReplacement replacement)
-	{
-
-	}
-
-	template <typename TPopulation>
-	TPopulation EvolutionaryAlgorithm<TPopulation>::evolve(TPopulation population)
+	TPopulation EvolutionaryAlgorithm2<TPopulation>::evolve(TPopulation population)
 	{
 		TPopulation new_pop{};
 
