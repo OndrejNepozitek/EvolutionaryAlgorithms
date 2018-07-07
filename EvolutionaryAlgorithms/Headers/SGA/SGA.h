@@ -2,13 +2,13 @@
 #define SGA_H
 #include <vector>
 #include <array>
-#include "../EvolutionaryAlgorithm.h"
-#include "../Operators/BitFlipMutation.h"
-#include "../Operators/OnePtXOver.h"
-#include "../Selectors/RouletteWheelSelector.h"
-#include "../Individuals/GenericIndividual.h"
-#include "../Utils/Initializer.h"
-#include "../Utils/Settings.h"
+#include "EvolutionaryAlgorithm.h"
+#include "Operators/BitFlipMutation.h"
+#include "Operators/OnePtXOver.h"
+#include "Selectors/RouletteWheelSelector.h"
+#include "Individuals/GenericIndividual.h"
+#include "Utils/Initializer.h"
+#include "Utils/Settings.h"
 
 namespace sga
 {

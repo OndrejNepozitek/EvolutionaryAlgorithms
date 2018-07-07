@@ -1,6 +1,6 @@
 ﻿#ifndef BENCHMARKS_H
 #define BENCHMARKS_H
-#include "TimeMeasuring.h"
+#include "Utils/TimeMeasuring.h"
 #include <iostream>
 
 namespace ea

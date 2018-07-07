@@ -1,6 +1,6 @@
 #include <iostream>
-#include "Headers/BinPacking/BinPacking.h"
-#include "Headers/SGA/SGA.h"
+#include "BinPacking/BinPacking.h"
+#include "SGA/SGA.h"
 
 int main()
 {

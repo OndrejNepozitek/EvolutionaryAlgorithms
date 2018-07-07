@@ -1,16 +1,17 @@
 ﻿#ifndef BINPACKING_H
 #define BINPACKING_H
-#include "../EvolutionaryAlgorithm.h"
-#include "../Operators/IntegerMutation.h"
-#include "../Operators/OnePtXOver.h"
+
 #include <string>
 #include <fstream>
 #include <vector>
-#include "BinPackingFitness.h"
-#include "../Individuals/GenericIndividual.h"
-#include "../Selectors/TournamentSelector.h"
-#include "../Utils/Initializer.h"
-#include "../Utils/Settings.h"
+#include "EvolutionaryAlgorithm.h"
+#include "Operators/IntegerMutation.h"
+#include "Operators/OnePtXOver.h"
+#include "BinPacking/BinPackingFitness.h"
+#include "Individuals/GenericIndividual.h"
+#include "Selectors/TournamentSelector.h"
+#include "Utils/Initializer.h"
+#include "Utils/Settings.h"
 
 namespace bin_packing
 {

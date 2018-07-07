@@ -2,7 +2,7 @@
 #define INTEGERMUTATION_H
 #include <cstdint>
 #include <random>
-#include "../Utils/Utils.h"
+#include "Utils/Utils.h"
 
 namespace ea
 {
