@@ -1,41 +1,59 @@
-﻿#pragma once
-#include <cstdlib>
+﻿#ifndef ONEPTXOVER_H
+#define ONEPTXOVER_H
+#include <random>
+#include "../Utils/Utils.h"
 
 namespace ea
 {
-	template<typename Population>
+	/**
+	* \brief Class implementing the One point crossover operator
+	* \tparam TPopulation Type of the population
+	* \remarks https://en.wikipedia.org/wiki/Crossover_(genetic_algorithm)
+	*/
+	template<typename TPopulation>
 	class OnePtXOver
 	{
+		double probability_;
+		std::uniform_real_distribution<> real_dist_;
+
 	public:
-		void operator()(Population& population);
+		/**
+		 * \brief 
+		 * \param probability The probability of doing the crossover for each pair of individuals
+		 */
+		explicit OnePtXOver(const double probability) : probability_(probability)
+		{	
+			real_dist_ = std::uniform_real_distribution<>(0, 1);
+		}
 
-		static void operate(Population& population);
-	};
-
-	template <typename Population>
-	void OnePtXOver<Population>::operator()(Population& population)
-	{
-		operate(population);
-	}
-
-	template <typename Population>
-	void OnePtXOver<Population>::operate(Population& population)
-	{
-		auto individual_size = population[0].size();
-
-		for (auto i = 0; i < population.size() / 2; ++i)
+		/**
+		 * \brief For each consecutive pair of individuals rolls a dice to decide if we should do the crossover.
+		 *		  If so, we pick a random position in the individuls and switch all data beyond that position.
+		 * \param population The population that is changed by the operator.
+		 */
+		void operator()(TPopulation& population)
 		{
-			auto p1 = population[2 * i];
-			auto p2 = population[2 * i + 1];
+			auto individual_size = population[0].size();
+			const std::uniform_int_distribution<int> int_distribution(0, individual_size - 1);
 
-			if (rand() % 100 < 5)
+			for (size_t i = 0; i < population.size() / 2; ++i)
 			{
-				auto position = rand() % individual_size;
+				auto p1 = population[2 * i];
+				auto p2 = population[2 * i + 1];
 
-				auto temp = p1[position];
-				p1[position] = p2[position];
-				p2[position] = temp;
+				if (real_dist_(rng_gen()) < probability_)
+				{
+					const auto position = int_distribution(rng_gen());
+
+					for (size_t pos = position; pos < individual_size; ++pos)
+					{
+						auto temp = p1[pos];
+						p1[pos] = p2[pos];
+						p2[pos] = temp;
+					}
+				}
 			}
 		}
-	}
+	};
 }
+#endif // ONEPTXOVER_H

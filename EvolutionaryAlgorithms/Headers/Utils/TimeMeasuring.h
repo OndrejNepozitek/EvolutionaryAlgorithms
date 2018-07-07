@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TIMEMEASURING_H
+#define TIMEMEASURING_H
 #ifdef _WIN32
 #include <Windows.h>
 #else
@@ -48,3 +49,4 @@ uint64 GetTimeMs64()
 	return ret;
 #endif
 }
+#endif // TIMEMEASURING_H

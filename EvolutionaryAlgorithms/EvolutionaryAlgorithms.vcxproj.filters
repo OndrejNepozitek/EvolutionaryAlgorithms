@@ -26,9 +26,6 @@
     <ClInclude Include="Headers\Operators\OnePtXOver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\ArrayIndividual.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\EvolutionaryAlgorithm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -41,10 +38,31 @@
     <ClInclude Include="Headers\Utils\Benchmarks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\EvolutionaryAlgorithm2.h">
+    <ClInclude Include="Headers\BinPacking\BinPacking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\GeneticAlgorithm.h">
+    <ClInclude Include="Headers\Operators\IntegerMutation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Utils\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\BinPacking\BinPackingFitness.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Individuals\GenericIndividual.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Selectors\TournamentSelector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\SGA\SGA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Utils\Initializer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Utils\Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

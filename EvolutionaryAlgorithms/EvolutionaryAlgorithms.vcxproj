@@ -126,15 +126,21 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\ArrayIndividual.h" />
+    <ClInclude Include="Headers\BinPacking\BinPacking.h" />
+    <ClInclude Include="Headers\BinPacking\BinPackingFitness.h" />
     <ClInclude Include="Headers\EvolutionaryAlgorithm.h" />
-    <ClInclude Include="Headers\EvolutionaryAlgorithm2.h" />
-    <ClInclude Include="Headers\GeneticAlgorithm.h" />
+    <ClInclude Include="Headers\Individuals\GenericIndividual.h" />
     <ClInclude Include="Headers\Operators\BitFlipMutation.h" />
+    <ClInclude Include="Headers\Operators\IntegerMutation.h" />
     <ClInclude Include="Headers\Operators\OnePtXOver.h" />
     <ClInclude Include="Headers\Selectors\RouletteWheelSelector.h" />
+    <ClInclude Include="Headers\Selectors\TournamentSelector.h" />
+    <ClInclude Include="Headers\SGA\SGA.h" />
     <ClInclude Include="Headers\Utils\Benchmarks.h" />
+    <ClInclude Include="Headers\Utils\Initializer.h" />
+    <ClInclude Include="Headers\Utils\Settings.h" />
     <ClInclude Include="Headers\Utils\TimeMeasuring.h" />
+    <ClInclude Include="Headers\Utils\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

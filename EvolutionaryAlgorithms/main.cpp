@@ -1,81 +1,45 @@
 #include <iostream>
-#include <vector>
-#include "Headers/ArrayIndividual.h"
-#include "Headers/Operators/OnePtXOver.h"
-#include "Headers/Operators/BitFlipMutation.h"
-#include "Headers/EvolutionaryAlgorithm.h"
-#include "Headers/Selectors/RouletteWheelSelector.h"
-#include "Headers/Utils/Benchmarks.h"
-#include "Headers/EvolutionaryAlgorithm2.h"
-#include "Headers/GeneticAlgorithm.h"
-
+#include "Headers/BinPacking/BinPacking.h"
+#include "Headers/SGA/SGA.h"
 
 int main()
 {
-	using individual = ea::ArrayIndividual<20, bool, int>;
-	using population = std::vector<individual>;
+	std::cout << "Simple genetic algorithm:" << std::endl << std::endl;
 
-	population pop{};
-
-	for (auto i = 0; i < 50; ++i)
 	{
-		pop.emplace(pop.end());
+		// Simple genetic algoritm - the goal is to evolve an individual with all ones
+		// The objective is set to be the number of positions that are not yet set to one.
+		// The goal is to get the objective value to be equal to zero.
+		sga::SGASettings settings;
+
+		settings.output_frequency = 100;
+		settings.number_of_runs = 10;
+		settings.bit_mutation_probability = 0.25;
+		settings.crossover_probability = 0.6;
+		settings.elitism = 0.01;
+
+		sga::solve_sga<70>(settings);
 	}
 
-	ea::EvolutionaryAlgorithm<population> ea{};
+	std::cout << std::endl << std::endl << "Bin packing:" << std::endl << std::endl;
 
-	ea.add_operator(ea::BitFlipMutation<population>{});
-	ea.add_operator(ea::OnePtXOver<population>{});
-	ea.add_mating_selector(ea::RouletteWheelSelector<population>{});
-	ea.set_fitness([](auto & pop) -> void {
-		for (auto && individual : pop)
-		{
-			auto sum = 0;
-
-			for (auto && element : individual)
-			{
-				if (element)
-				{
-					++sum;
-				}
-			}
-
-			individual.fitness = sum;
-		}
-	});
-
-	ea.set_elitism(0.05);
-
-	ea::EvolutionaryAlgorithm2<population> ea2{};
-
-	ea2.add_operator(ea::BitFlipMutation<population>::operate);
-	ea2.add_operator(ea::OnePtXOver<population>::operate);
-	ea2.add_mating_selector(ea::RouletteWheelSelector<population>::select);
-	ea2.set_fitness(ea::ga_fitness);
-
-	ea2.set_elitism(0.05);
-
-
-	//for (int i = 0; i < 10000; ++i)
-	//{
-	//	pop = ea.evolve(pop);
-
-	//	const auto best = std::max_element(pop.begin(), pop.end(), [](auto i1, auto i2) { return i1.fitness < i2.fitness; });
-
-	//	if (i % 500 == 0)
-	//	{
-	//		std::cout << "gen: " << i << "; best fitness:" << best->fitness << std::endl;
-	//	}
-	//}
-
-	for (auto i = 0; i < 3; ++i)
 	{
-		ea::benchmark_and_output(ea, pop, 10000);
-	}
+		// Bin packing - the goal is to divide items with different weights to the specified number of bins, 
+		// minimizing the difference between the smallest and the biggest bin.
+		// The objective is set to be the difference between the smallest and the biggest bin.
+		// The goal is to get the objective value to be equal to zero.
+		bin_packing::BinPackingSettings settings;
 
-	for (auto i = 0; i < 3; ++i)
-	{
-		ea::benchmark_and_output(ea2, pop, 10000);
+		settings.mutation_probability = 0.6;
+		settings.crossover_probability = 0.2;
+		settings.gene_change_probability = 0.001;
+		settings.output_frequency = 500;
+		settings.number_of_runs = 5;
+		settings.bins_count = 7;
+		settings.generations = 2500;
+		settings.elitism = 0.05;
+
+		bin_packing::solve_bin_packing("packingInput-easier.txt", settings);
 	}
 
 	return 0;
